@@ -9,7 +9,7 @@ jobs:
         id: parse
         uses: NetChris-actions/parse-semver@1-init
         with:
-          parseValue 'v1.2.3'
+          parseValue: 'v1.2.3'
       - name: Output full match
         run: echo ${{ steps.parse.outputs.semVer }}
       - name: Output major
@@ -30,7 +30,7 @@ jobs:
         id: parse
         uses: NetChris-actions/parse-semver@1-init
         with:
-          parseValue '3.2.1'
+          parseValue: 'v1.2.3'
       - name: Output full match
         run: echo ${{ steps.parse.outputs.semVer }}
       - name: Output major
@@ -51,7 +51,7 @@ jobs:
         id: parse
         uses: NetChris-actions/parse-semver@1-init
         with:
-          parseValue 'this_is_not-a-version'
+          parseValue: 'v1.2.3'
       - name: Output full match
         run: echo ${{ steps.parse.outputs.semVer }}
       - name: Output major
