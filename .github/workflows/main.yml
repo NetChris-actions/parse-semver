@@ -9,19 +9,19 @@ jobs:
         id: parse
         uses: NetChris-actions/parse-semver@1-init
         with:
-          version-input: 'v1.2.3'
+          parseValue 'v1.2.3'
       - name: Output full match
-        run: echo ${{ steps.parse.outputs.all }}
+        run: echo ${{ steps.parse.outputs.semVer }}
       - name: Output major
-        run: echo ${{ steps.parse.outputs.major }}
+        run: echo ${{ steps.parse.outputs.semVerMajor }}
       - name: Output minor
-        run: echo ${{ steps.parse.outputs.minor }}
+        run: echo ${{ steps.parse.outputs.semVerMinor }}
       - name: Output patch
-        run: echo ${{ steps.parse.outputs.patch }}
+        run: echo ${{ steps.parse.outputs.semVerPatch }}
       - name: Output prerelease
-        run: echo ${{ steps.parse.outputs.prerelease }}
+        run: echo ${{ steps.parse.outputs.semVerPreRelease }}
       - name: Output buildmetadata
-        run: echo ${{ steps.parse.outputs.buildmetadata }}
+        run: echo ${{ steps.parse.outputs.semVerBuildMetadata }}
   happy-path-without-v:
     runs-on: ubuntu-latest
     name: 
@@ -30,19 +30,19 @@ jobs:
         id: parse
         uses: NetChris-actions/parse-semver@1-init
         with:
-          version-input: '3.2.1'
+          parseValue '3.2.1'
       - name: Output full match
-        run: echo ${{ steps.parse.outputs.all }}
+        run: echo ${{ steps.parse.outputs.semVer }}
       - name: Output major
-        run: echo ${{ steps.parse.outputs.major }}
+        run: echo ${{ steps.parse.outputs.semVerMajor }}
       - name: Output minor
-        run: echo ${{ steps.parse.outputs.minor }}
+        run: echo ${{ steps.parse.outputs.semVerMinor }}
       - name: Output patch
-        run: echo ${{ steps.parse.outputs.patch }}
+        run: echo ${{ steps.parse.outputs.semVerPatch }}
       - name: Output prerelease
-        run: echo ${{ steps.parse.outputs.prerelease }}
+        run: echo ${{ steps.parse.outputs.semVerPreRelease }}
       - name: Output buildmetadata
-        run: echo ${{ steps.parse.outputs.buildmetadata }}
+        run: echo ${{ steps.parse.outputs.semVerBuildMetadata }}
   sad-path:
     runs-on: ubuntu-latest
     name: 
@@ -51,16 +51,16 @@ jobs:
         id: parse
         uses: NetChris-actions/parse-semver@1-init
         with:
-          version-input: 'this_is_not-a-version'
+          parseValue 'this_is_not-a-version'
       - name: Output full match
-        run: echo ${{ steps.parse.outputs.all }}
+        run: echo ${{ steps.parse.outputs.semVer }}
       - name: Output major
-        run: echo ${{ steps.parse.outputs.major }}
+        run: echo ${{ steps.parse.outputs.semVerMajor }}
       - name: Output minor
-        run: echo ${{ steps.parse.outputs.minor }}
+        run: echo ${{ steps.parse.outputs.semVerMinor }}
       - name: Output patch
-        run: echo ${{ steps.parse.outputs.patch }}
+        run: echo ${{ steps.parse.outputs.semVerPatch }}
       - name: Output prerelease
-        run: echo ${{ steps.parse.outputs.prerelease }}
+        run: echo ${{ steps.parse.outputs.semVerPreRelease }}
       - name: Output buildmetadata
-        run: echo ${{ steps.parse.outputs.buildmetadata }}
+        run: echo ${{ steps.parse.outputs.semVerBuildMetadata }}

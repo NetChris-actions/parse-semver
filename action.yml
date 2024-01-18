@@ -2,24 +2,24 @@
 name: 'SemVer 2 Parse'
 description: 'Greet someone and record the time'
 inputs:
-  version-input:  # id of input
-    description: 'Version string'
+  parseValue:  # id of input
+    description: 'Value to parse'
     required: true
 outputs:
-  all: # id of output
+  semVer: # id of output
     description: 'The fully matched version'
-  major: # id of output
+  semVerMajor: # id of output
     description: 'The major version'
-  minor: # id of output
+  semVerMinor: # id of output
     description: 'The minor version'
-  patch: # id of output
+  semVerPatch: # id of output
     description: 'The patch version'
-  prerelease: # id of output
+  semVerPreRelease: # id of output
     description: 'The pre-release version'
-  buildmetadata: # id of output
+  semVerBuildMetadata: # id of output
     description: 'The build metadata'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.version-input }}
+    - ${{ inputs.parseValue }}
