@@ -16,7 +16,7 @@ semVerPatch=$(echo $Version | pcre2grep -o3 $SemVer2RegEx)
 semVerPreRelease=$(echo $Version | pcre2grep -o4 $SemVer2RegEx)
 semVerBuildMetadata=$(echo $Version | pcre2grep -o5 $SemVer2RegEx)
 
-MajorMinorRegEx="^((0|[1-9]\d*)\.(0|[1-9]\d*))"
+MajorMinorRegEx="^((0|[1-9]\d*)\.(0|[1-9]\d*))\.?"
 majorMinorOnly=$(echo $Version | pcre2grep -o1 $MajorMinorRegEx)
 
 echo "semVer=$semVer" >> $GITHUB_OUTPUT
