@@ -10,5 +10,15 @@ jobs:
         uses: NetChris-actions/parse-semver@1-init
         with:
           version-input: 'v1.2.3'
-      - name: Get the outputs
-        run: echo "The time was ${{ steps.parse.outputs.all }}"
+      - name: Output full match
+        run: echo ${{ steps.parse.outputs.all }}
+      - name: Output major
+        run: echo ${{ steps.parse.outputs.major }}
+      - name: Output minor
+        run: echo ${{ steps.parse.outputs.minor }}
+      - name: Output patch
+        run: echo ${{ steps.parse.outputs.patch }}
+      - name: Output prerelease
+        run: echo ${{ steps.parse.outputs.prerelease }}
+      - name: Output buildmetadata
+        run: echo ${{ steps.parse.outputs.buildmetadata }}
