@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: SemVer parse
         id: parse
-        uses: NetChris-actions/parse-semver@1-init
+        uses: NetChris-actions/parse-semver@3-basic-readme
         with:
           parseValue: 'v1.2.3'
       - name: Output full match
@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: SemVer parse
         id: parse
-        uses: NetChris-actions/parse-semver@1-init
+        uses: NetChris-actions/parse-semver@3-basic-readme
         with:
           parseValue: '3.2.4-x+d'
       - name: Output full match
@@ -55,7 +55,7 @@ jobs:
     steps:
       - name: SemVer parse
         id: parse
-        uses: NetChris-actions/parse-semver@1-init
+        uses: NetChris-actions/parse-semver@3-basic-readme
         with:
           parseValue: 'v78.23'
       - name: Output full match
@@ -78,7 +78,7 @@ jobs:
     steps:
       - name: SemVer parse
         id: parse
-        uses: NetChris-actions/parse-semver@1-init
+        uses: NetChris-actions/parse-semver@3-basic-readme
         with:
           parseValue: 'this-is-a-bad-version'
       - name: Output full match
