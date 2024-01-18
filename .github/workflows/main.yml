@@ -1,9 +1,11 @@
+name: Main Test
+
 on: [push]
 
 jobs:
   happy-path-with-v:
     runs-on: ubuntu-latest
-    name: 
+    name: Happy Path with v prefix
     steps:
       - name: SemVer parse
         id: parse
@@ -24,7 +26,7 @@ jobs:
         run: echo ${{ steps.parse.outputs.semVerBuildMetadata }}
   happy-path-without-v:
     runs-on: ubuntu-latest
-    name: 
+    name: Happy Path without v prefix
     steps:
       - name: SemVer parse
         id: parse
@@ -45,7 +47,7 @@ jobs:
         run: echo ${{ steps.parse.outputs.semVerBuildMetadata }}
   sad-path:
     runs-on: ubuntu-latest
-    name: 
+    name: Sad Path
     steps:
       - name: SemVer parse
         id: parse
