@@ -1,2 +1,3 @@
-# parse-semver
+# parse SemVer
+
 Parses SemVer version strings
