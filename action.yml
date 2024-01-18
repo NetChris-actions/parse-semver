@@ -1,0 +1,25 @@
+# action.yml
+name: 'SemVer 2 Parse'
+description: 'Greet someone and record the time'
+inputs:
+  version-input:  # id of input
+    description: 'Version string'
+    required: true
+outputs:
+  all: # id of output
+    description: 'The fully matched version'
+  major: # id of output
+    description: 'The major version'
+  minor: # id of output
+    description: 'The minor version'
+  patch: # id of output
+    description: 'The patch version'
+  prerelease: # id of output
+    description: 'The pre-release version'
+  buildmetadata: # id of output
+    description: 'The build metadata'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.version-input }}
