@@ -24,6 +24,8 @@ jobs:
         run: echo ${{ steps.parse.outputs.semVerPreRelease }}
       - name: Output buildmetadata
         run: echo ${{ steps.parse.outputs.semVerBuildMetadata }}
+      - name: Output majorMinorOnly
+        run: echo ${{ steps.parse.outputs.majorMinorOnly }}
   happy-path-without-v:
     runs-on: ubuntu-latest
     name: Happy Path without v prefix
@@ -45,6 +47,8 @@ jobs:
         run: echo ${{ steps.parse.outputs.semVerPreRelease }}
       - name: Output buildmetadata
         run: echo ${{ steps.parse.outputs.semVerBuildMetadata }}
+      - name: Output majorMinorOnly
+        run: echo ${{ steps.parse.outputs.majorMinorOnly }}
   sad-path:
     runs-on: ubuntu-latest
     name: Sad Path
@@ -66,3 +70,5 @@ jobs:
         run: echo ${{ steps.parse.outputs.semVerPreRelease }}
       - name: Output buildmetadata
         run: echo ${{ steps.parse.outputs.semVerBuildMetadata }}
+      - name: Output majorMinorOnly
+        run: echo ${{ steps.parse.outputs.majorMinorOnly }}

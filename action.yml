@@ -18,6 +18,8 @@ outputs:
     description: 'The pre-release version'
   semVerBuildMetadata: # id of output
     description: 'The build metadata'
+  majorMinorOnly: # id of output
+    description: 'Returns any matching MajorVersion.MinorVersion pattern whether the input is valid SemVer or not.  Useful for development releases whee patch and prerelease values will be provided programmatically.'
 runs:
   using: 'docker'
   image: 'Dockerfile'
