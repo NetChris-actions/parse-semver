@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: SemVer parse
         id: parse
-        uses: NetChris-actions/parse-semver@v1
+        uses: NetChris/parse-semver@v1
         with:
           parseValue: 'v1.2.3'
       - name: Output full match
