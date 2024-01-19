@@ -4,7 +4,6 @@ InputValue="$1"
 
 # Detect a "relaxed" major.minor version from the input
 MajorMinorRegEx="((0|[1-9]\d*)\.(0|[1-9]\d*))"
-majorMinorOnly=$(echo $InputValue | pcre2grep -o1 $MajorMinorRegEx)
 majorMinorOnlyMajor=$(echo $InputValue | pcre2grep -o2 $MajorMinorRegEx)
 majorMinorOnlyMinor=$(echo $InputValue | pcre2grep -o3 $MajorMinorRegEx)
 
@@ -15,11 +14,11 @@ majorMinorOnlyMinor=$(echo $InputValue | pcre2grep -o3 $MajorMinorRegEx)
 SemVer2RegEx="((0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)"
 
 semVer=$(echo $InputValue | pcre2grep -o1 $SemVer2RegEx)
-semVerMajor=$(echo $InputValue | pcre2grep -o2 $SemVer2RegEx)
-semVerMinor=$(echo $InputValue | pcre2grep -o3 $SemVer2RegEx)
-semVerPatch=$(echo $InputValue | pcre2grep -o4 $SemVer2RegEx)
-semVerPreRelease=$(echo $InputValue | pcre2grep -o5 $SemVer2RegEx)
-semVerBuildMetadata=$(echo $InputValue | pcre2grep -o6 $SemVer2RegEx)
+majorVersion=$(echo $InputValue | pcre2grep -o2 $SemVer2RegEx)
+minorVersion=$(echo $InputValue | pcre2grep -o3 $SemVer2RegEx)
+patchVersion=$(echo $InputValue | pcre2grep -o4 $SemVer2RegEx)
+preReleaseVersion=$(echo $InputValue | pcre2grep -o5 $SemVer2RegEx)
+buildMetadata=$(echo $InputValue | pcre2grep -o6 $SemVer2RegEx)
 
 hasSemVer=false
 isPreRelease=false
@@ -28,24 +27,26 @@ if [ ! -z "$semVer" ]
 then
   hasSemVer=true
 
-  if [ ! -z "$semVerPreRelease" ]
+  if [ ! -z "$preReleaseVersion" ]
   then
     isPreRelease=true
   fi
+
 else
-  # If not an official SemVer value, use majorMinorOnlyMajor and majorMinorOnlyMinor for semVerMajor and semVerMinor respectively
-  semVerMajor=$majorMinorOnlyMajor
-  semVerMinor=$majorMinorOnlyMinor
+  # If not an official SemVer value, use majorMinorOnlyMajor and majorMinorOnlyMinor for majorVersion and minorVersion respectively
+  majorVersion=$majorMinorOnlyMajor
+  minorVersion=$majorMinorOnlyMinor
 fi
+
+# Convenience construction
+majorMinorOnly="$majorVersion.$minorVersion"
 
 echo "hasSemVer=$hasSemVer"
 echo "semVer=$semVer"
-echo "semVerMajor=$semVerMajor"
-echo "semVerMinor=$semVerMinor"
-echo "semVerPatch=$semVerPatch"
-echo "semVerPreRelease=$semVerPreRelease"
-echo "semVerBuildMetadata=$semVerBuildMetadata"
 echo "majorMinorOnly=$majorMinorOnly"
-echo "majorMinorOnlyMajor=$majorMinorOnlyMajor"
-echo "majorMinorOnlyMinor=$majorMinorOnlyMinor"
+echo "majorVersion=$majorVersion"
+echo "minorVersion=$minorVersion"
+echo "patchVersion=$patchVersion"
+echo "preReleaseVersion=$preReleaseVersion"
+echo "buildMetadata=$buildMetadata"
 echo "isPreRelease=$isPreRelease"
