@@ -17,23 +17,14 @@ Note that this functionality will detect _any_ "number.number" form.  Given this
 - These outputs provide a value whether the input value contains a valid SemVer version or not:
   - `hasSemVer` - "true" if the input contains a SemVer version, otherwise "false"
 - These outputs provide a value as long as the input value contains a "major.minor" version:
-  - `majorVersion` - The major version in the input
-  - `minorVersion` - The minor version detected in the input
+  - `majorVersion` - The major version
+  - `minorVersion` - The minor version
   - `majorMinorOnly` - Convenience value containing the "major.minor" version in that form
-    - e.g. "3.2" if `majorVersion` is "3" and `minorVersion` is "2
 - The remaining outputs provide values only if the input contains a valid SemVer version:
   - `semVer` - The full SemVer version
-    - e.g. "1.0.0-alpha+001"
-  - `patchVersion` - The patch version detected in the input _if_ the input contains a valid SemVer version
-  - `preReleaseVersion` - 
-  - `buildMetadata` - 
-  - `XXX` - 
-  - `XXX` - 
-  - `XXX` - 
-  - `XXX` - 
-  - `XXX` - 
-  - `XXX` - 
-  - `XXX` - 
+  - `patchVersion` - The patch version
+  - `preReleaseVersion` - The pre-release version
+  - `buildMetadata` - The build metadata
 
 ### Input/Output Examples
 
