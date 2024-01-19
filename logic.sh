@@ -41,6 +41,7 @@ fi
 # Convenience construction
 majorMinorOnly="$majorVersion.$minorVersion"
 
+echo "inputValue=$InputValue"
 echo "hasSemVer=$hasSemVer"
 echo "semVer=$semVer"
 echo "majorMinorOnly=$majorMinorOnly"
