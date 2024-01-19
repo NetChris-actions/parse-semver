@@ -2,15 +2,8 @@
 
 InputValue="$1"
 
-if [ ! -z "$InputValue" ]
-then
-  echo "No input value"
-  return -1
-fi
-
 # Detect a "relaxed" major.minor version from the input
 MajorMinorRegEx="((0|[1-9]\d*)\.(0|[1-9]\d*))"
-majorMinorOnly=$(echo $InputValue | pcre2grep -o1 $MajorMinorRegEx)
 majorMinorOnlyMajor=$(echo $InputValue | pcre2grep -o2 $MajorMinorRegEx)
 majorMinorOnlyMinor=$(echo $InputValue | pcre2grep -o3 $MajorMinorRegEx)
 
@@ -45,6 +38,10 @@ else
   minorVersion=$majorMinorOnlyMinor
 fi
 
+# Convenience construction
+majorMinorOnly="$majorVersion.$minorVersion"
+
+echo "inputValue=$InputValue" >> $GITHUB_OUTPUT
 echo "hasSemVer=$hasSemVer" >> $GITHUB_OUTPUT
 echo "semVer=$semVer" >> $GITHUB_OUTPUT
 echo "majorMinorOnly=$majorMinorOnly" >> $GITHUB_OUTPUT

@@ -6,6 +6,8 @@ inputs:
     description: 'Value to parse'
     required: true
 outputs:
+  inputValue: # id of output
+    description: 'The input value echoed back'
   hasSemVer: # id of output
     description: '"true" if the input contains a SemVer version, otherwise "false"'
   semVer: # id of output
