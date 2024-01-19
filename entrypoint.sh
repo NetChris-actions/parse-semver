@@ -2,6 +2,12 @@
 
 InputValue="$1"
 
+if [ ! -z "$InputValue" ]
+then
+  echo "No input value"
+  return -1
+fi
+
 # Detect a "relaxed" major.minor version from the input
 MajorMinorRegEx="((0|[1-9]\d*)\.(0|[1-9]\d*))"
 majorMinorOnlyMajor=$(echo $InputValue | pcre2grep -o2 $MajorMinorRegEx)
