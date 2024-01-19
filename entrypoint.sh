@@ -4,7 +4,7 @@ InputValue="$1"
 
 if [ ! -z "$InputValue" ]
 then
-  echo "No intput value"
+  echo "No input value"
   return -1
 fi
 
