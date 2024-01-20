@@ -28,7 +28,7 @@ pre_release_version=$(echo $InputValue | pcre2grep -o5 $SemVer2RegEx)
 build_metadata=$(echo $InputValue | pcre2grep -o6 $SemVer2RegEx)
 
 has_semver_version=false
-isPreRelease=false
+is_pre_release=false
 
 if [ ! -z "$semver_version" ]
 then
@@ -36,7 +36,7 @@ then
 
   if [ ! -z "$pre_release_version" ]
   then
-    isPreRelease=true
+    is_pre_release=true
   fi
 
 else
@@ -53,4 +53,4 @@ echo "minor_version=$minor_version" >> $GITHUB_OUTPUT
 echo "patch_version=$patch_version" >> $GITHUB_OUTPUT
 echo "pre_release_version=$pre_release_version" >> $GITHUB_OUTPUT
 echo "build_metadata=$build_metadata" >> $GITHUB_OUTPUT
-echo "isPreRelease=$isPreRelease" >> $GITHUB_OUTPUT
+echo "is_pre_release=$is_pre_release" >> $GITHUB_OUTPUT

@@ -28,7 +28,7 @@ Note that this functionality will detect _any_ "number.number" form.  Given this
 
 ### Input/Output Examples
 
-| Input Value           | `has_semver_version` | `semver_version`            | `major_version` | `minor_version` | `major_minor_version` | `patch_version` | `pre_release_version` | `build_metadata` | `isPreRelease` |
+| Input Value           | `has_semver_version` | `semver_version`            | `major_version` | `minor_version` | `major_minor_version` | `patch_version` | `pre_release_version` | `build_metadata` | `is_pre_release` |
 | ---                   | ---         | ---                 | ---            | ---            | ---              | ---            | ---                 | ---             | ---            |
 | "`1.2.3`"             | `true`      | `1.2.3`             | `1`            | `2`            | `1.2`            | `3`            | _<EMPTY>_           | _<EMPTY>_       | `false`        |
 | "`5.12.23-alpha+001`" | `true`      | `5.12.23-alpha+001` | `5`            | `12`           | `5.12`           | `23`           | `alpha`             | `001`           | `true`         |
