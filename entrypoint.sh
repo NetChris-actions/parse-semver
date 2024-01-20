@@ -1,3 +1,3 @@
 #!/bin/sh -l
 
-/logic.sh >> $GITHUB_OUTPUT
+/logic.sh $1 >> $GITHUB_OUTPUT
