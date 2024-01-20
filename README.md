@@ -22,11 +22,14 @@ There is a single input, `value_to_parse`.  It defaults to using `gitlab.ref` to
   - `major_version` - The major version
   - `minor_version` - The minor version
   - `major_minor_version` - Convenience value containing the "major.minor" version in that form
-- The remaining outputs provide values only if the input contains a valid SemVer version:
+- These outputs provide values only if the input contains a valid SemVer version:
   - `semver_version` - The full SemVer version
   - `patch_version` - The patch version
   - `pre_release_version` - The pre-release version
   - `build_metadata` - The build metadata
+- Remaining outputs provide values in all cases:
+  - `fallback_version` TODO description
+  - `value_to_parse` echoes back the `value_to_parse` input, useful for debugging the calling action
 
 ### Input/Output Examples
 

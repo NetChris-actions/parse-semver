@@ -1,11 +1,14 @@
 #!/bin/sh -l
 
-value_to_parse="$1"
+run_id="$1"
+run_number="$2"
+run_attempt="$3"
+value_to_parse="$4"
 
 if [ -z "$value_to_parse" ]
 then
   echo "No value to parse"
-  return -1
+  exit -1
 fi
 
 # Detect a "relaxed" major.minor version from the input
@@ -32,6 +35,15 @@ then
   # If not an official SemVer value, use majorMinorOnlyMajor and majorMinorOnlyMinor for major_version and minor_version respectively
   major_version=$majorMinorOnlyMajor
   minor_version=$majorMinorOnlyMinor
+
+  if [ -z "$major_minor_version" ]
+  then
+    fallback_version="0.0.$run_id-fallback+rn-$run_number-ra-$run_attempt"
+  else
+    fallback_version="$major_minor_version.$run_id-fallback+rn-$run_number-ra-$run_attempt"
+  if
+else
+  fallback_version=$semver_version
 fi
 
 echo "value_to_parse=$value_to_parse"
@@ -42,3 +54,4 @@ echo "minor_version=$minor_version"
 echo "patch_version=$patch_version"
 echo "pre_release_version=$pre_release_version"
 echo "build_metadata=$build_metadata"
+echo "fallback_version=$fallback_version"

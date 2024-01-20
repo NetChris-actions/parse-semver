@@ -23,8 +23,13 @@ outputs:
     description: 'The build metadata'
   major_minor_version:
     description: 'Returns any matching MajorVersion.MinorVersion pattern whether the input is valid SemVer or not.  Useful for development releases whee patch and prerelease values will be provided programmatically.'
+  fallback_version:
+    description: 'A best-effort at returning a SemVer-compatible version'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - ${{ inputs.run_id }}
+    - ${{ inputs.run_number }}
+    - ${{ inputs.run_attempt }}
     - ${{ inputs.value_to_parse }}
