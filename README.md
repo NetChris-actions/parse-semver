@@ -53,7 +53,7 @@ For debugging you can also input specific values for GitHub action metadata that
 
 ## Usage Examples
 
-Allow the action to pull the value from `gitlab.ref` itself
+### Allow the action to pull the value from `gitlab.ref` itself
 
 ``` yaml
 name: parse-semver test - use default
@@ -88,9 +88,13 @@ jobs:
         run: echo ${{ steps.parse.outputs.pre_release_version }}
       - name: Output SemVer buildmetadata component
         run: echo ${{ steps.parse.outputs.build_metadata }}
+      - name: fallback_version
+        run: echo ${{ steps.parse.outputs.fallback_version }}
 ```
 
-Pass in a value to `value_to_parse`
+This is the recommended style of use to allow the action to "derive" the version and make a best effort.  This reduces the amount of logic you have to use to construct a version for building and deploying artifacts.
+
+### Pass in a value to `value_to_parse`
 
 ``` yaml
 name: parse-semver test - passed value "v1.2.3"
@@ -125,4 +129,6 @@ jobs:
         run: echo ${{ steps.parse.outputs.pre_release_version }}
       - name: Output SemVer buildmetadata component
         run: echo ${{ steps.parse.outputs.build_metadata }}
+      - name: fallback_version
+        run: echo ${{ steps.parse.outputs.fallback_version }}
 ```
