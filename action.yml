@@ -29,7 +29,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.run_id }}
-    - ${{ inputs.run_number }}
-    - ${{ inputs.run_attempt }}
+    - ${{ github.run_id }}
+    - ${{ github.run_number }}
+    - ${{ github.run_attempt }}
     - ${{ inputs.value_to_parse }}
