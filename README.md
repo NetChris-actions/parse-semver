@@ -69,7 +69,7 @@ jobs:
         run: echo "${{ github.ref }}"
       - name: Parse GitHub ref
         id: parse
-        uses: NetChris/parse-semver@5-make-parsing-find-the-first-occurrence-of-the-semver-pattern
+        uses: NetChris/parse-semver@v0
       - name: Output value_to_parse
         run: echo "${{ steps.parse.outputs.value_to_parse }}"
       - name: Has semver_version?
@@ -104,7 +104,7 @@ jobs:
     steps:
       - name: Parse GitHub ref
         id: parse
-        uses: NetChris/parse-semver@5-make-parsing-find-the-first-occurrence-of-the-semver-pattern
+        uses: NetChris/parse-semver@v0
         with:
           value_to_parse: 'v1.2.3'
       - name: Output value_to_parse
