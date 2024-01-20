@@ -64,7 +64,7 @@ then
     fallback_version="0.0.$run_id-fallback+rn-$run_number-ra-$run_attempt"
   else
     fallback_version="$major_minor_version.$run_id-fallback+rn-$run_number-ra-$run_attempt"
-  if
+  fi
 else
   fallback_version=$semver_version
 fi
