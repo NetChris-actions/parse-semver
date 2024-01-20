@@ -66,7 +66,7 @@ then
   # https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assemblyversionattribute
   # https://stackoverflow.com/a/44680001/208990
   _fallback_microsoft_version_prefix="$run_attempt.$run_number"
-  _fallback_nuget_version_prefix="$run_attempt.$run_number"
+  _fallback_nuget_version_prefix="$run_attempt.$run_number-$_fallback_prerelease"
 
   if [ -z "$major_minor_version" ]
   then
