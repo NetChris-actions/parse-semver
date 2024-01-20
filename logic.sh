@@ -5,6 +5,24 @@ run_number="$2"
 run_attempt="$3"
 value_to_parse="$4"
 
+if [ -z "$run_id" ]
+then
+  echo "No run_id"
+  exit 1
+fi
+
+if [ -z "$run_number" ]
+then
+  echo "No run_number"
+  exit 1
+fi
+
+if [ -z "$run_attempt" ]
+then
+  echo "No run_attempt"
+  exit 1
+fi
+
 if [ -z "$value_to_parse" ]
 then
   echo "No value to parse"
