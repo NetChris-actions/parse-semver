@@ -27,26 +27,14 @@ patch_version=$(echo $value_to_parse | pcre2grep -o4 $SemVer2RegEx)
 pre_release_version=$(echo $value_to_parse | pcre2grep -o5 $SemVer2RegEx)
 build_metadata=$(echo $value_to_parse | pcre2grep -o6 $SemVer2RegEx)
 
-has_semver_version=false
-is_pre_release=false
-
-if [ ! -z "$semver_version" ]
+if [ -z "$semver_version" ]
 then
-  has_semver_version=true
-
-  if [ ! -z "$pre_release_version" ]
-  then
-    is_pre_release=true
-  fi
-
-else
   # If not an official SemVer value, use majorMinorOnlyMajor and majorMinorOnlyMinor for major_version and minor_version respectively
   major_version=$majorMinorOnlyMajor
   minor_version=$majorMinorOnlyMinor
 fi
 
 echo "value_to_parse=$value_to_parse"
-echo "has_semver_version=$has_semver_version"
 echo "semver_version=$semver_version"
 echo "major_minor_version=$major_minor_version"
 echo "major_version=$major_version"
@@ -54,4 +42,3 @@ echo "minor_version=$minor_version"
 echo "patch_version=$patch_version"
 echo "pre_release_version=$pre_release_version"
 echo "build_metadata=$build_metadata"
-echo "is_pre_release=$is_pre_release"

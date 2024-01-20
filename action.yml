@@ -9,8 +9,6 @@ inputs:
 outputs:
   value_to_parse:
     description: 'The value to parse'
-  has_semver_version:
-    description: '"true" if the input contains a SemVer version, otherwise "false"'
   semver_version:
     description: 'The fully matched version'
   major_version:

@@ -12,10 +12,12 @@ In some cases it can be useful to detect a "major.minor" format version in the i
 
 Note that this functionality will detect _any_ "number.number" form.  Given this, `major_minor_version` should only be used to inform **non-production** products.  Production products should use a conforming SemVer version.
 
+## Input
+
+There is a single input, `value_to_parse`.  It defaults to using `gitlab.ref` to automatically try to parse the branch or tag.
+
 ## Outputs
 
-- These outputs provide a value whether the input value contains a valid SemVer version or not:
-  - `has_semver_version` - "true" if the input contains a SemVer version, otherwise "false"
 - These outputs provide a value as long as the input value contains a "major.minor" version:
   - `major_version` - The major version
   - `minor_version` - The minor version
@@ -28,12 +30,12 @@ Note that this functionality will detect _any_ "number.number" form.  Given this
 
 ### Input/Output Examples
 
-| Input Value           | `value_to_parse`    | `has_semver_version` | `semver_version`            | `major_version` | `minor_version` | `major_minor_version` | `patch_version` | `pre_release_version` | `build_metadata` | `is_pre_release` |
-| ---                   | ---                 | ---                  | ---                         | ---             | ---             | ---                   | ---             | ---                   | ---              | ---              |
-| "`1.2.3`"             | `1.2.3`             | `true`               | `1.2.3`                     | `1`             | `2`             | `1.2`                 | `3`             | _<EMPTY>_             | _<EMPTY>_        | `false`          |
-| "`5.12.23-alpha+001`" | `5.12.23-alpha+001` | `true`               | `5.12.23-alpha+001`         | `5`             | `12`            | `5.12`                | `23`            | `alpha`               | `001`            | `true`           |
-| "`v2.3`"              | `v2.3`              | `false`              | _<EMPTY>_                   | `2`             | `3`             | `2.3`                 | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_`       | `false`          |
-| "`v7`"                | `v7`                | `false`              | _<EMPTY>_                   | _<EMPTY>_       | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_`       | `false`          |
+| Input Value           | `value_to_parse`    | `semver_version`            | `major_version` | `minor_version` | `major_minor_version` | `patch_version` | `pre_release_version` | `build_metadata` |
+| ---                   | ---                 | ---                         | ---             | ---             | ---                   | ---             | ---                   | ---              |
+| "`1.2.3`"             | `1.2.3`             | `1.2.3`                     | `1`             | `2`             | `1.2`                 | `3`             | _<EMPTY>_             | _<EMPTY>_        |
+| "`5.12.23-alpha+001`" | `5.12.23-alpha+001` | `5.12.23-alpha+001`         | `5`             | `12`            | `5.12`                | `23`            | `alpha`               | `001`            |
+| "`v2.3`"              | `v2.3`              | _<EMPTY>_                   | `2`             | `3`             | `2.3`                 | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_`       |
+| "`v7`"                | `v7`                | _<EMPTY>_                   | _<EMPTY>_       | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_`       |
 
 ## Usage Examples
 
