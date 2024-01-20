@@ -61,7 +61,7 @@ then
 
   _fallback_prerelease="fallback-$run_number-$run_attempt"
 
-  # Low-priority WARNING: fallback_microsoft_version and fallback_nuget_version will stop working after run_number exceeds 65534
+  # Low-priority WARNING: dotnet_assembly_version and nuget_version will stop working after run_number exceeds 65534
   # REALLY Low-priority WARNING: The same holds true for run_attempt
   # https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assemblyversionattribute
   # https://stackoverflow.com/a/44680001/208990
@@ -71,22 +71,22 @@ then
   if [ -z "$major_minor_version" ]
   then
     fallback_version="0.0.$run_id-$_fallback_prerelease"
-    fallback_microsoft_version="0.0.$_fallback_microsoft_version_prefix"
-    fallback_nuget_version="0.0.$_fallback_nuget_version_prefix"
+    dotnet_assembly_version="0.0.$_fallback_microsoft_version_prefix"
+    nuget_version="0.0.$_fallback_nuget_version_prefix"
   else
     fallback_version="$major_minor_version.$run_id-$_fallback_prerelease"
-    fallback_microsoft_version="$major_minor_version.$_fallback_microsoft_version_prefix"
-    fallback_nuget_version="$major_minor_version.$_fallback_nuget_version_prefix"
+    dotnet_assembly_version="$major_minor_version.$_fallback_microsoft_version_prefix"
+    nuget_version="$major_minor_version.$_fallback_nuget_version_prefix"
   fi
 
 else
   fallback_version=$semver_version
-  fallback_microsoft_version="$major_version.$minor_version.0.$patch_version"
-  fallback_nuget_version="$major_version.$minor_version.$patch_version"
+  dotnet_assembly_version="$major_version.$minor_version.0.$patch_version"
+  nuget_version="$major_version.$minor_version.$patch_version"
 
   if [ ! -z "$pre_release_version" ]
   then
-    fallback_nuget_version="$fallback_nuget_version-$pre_release_version"
+    nuget_version="$nuget_version-$pre_release_version"
   fi
 fi
 
@@ -99,5 +99,5 @@ echo "patch_version=$patch_version"
 echo "pre_release_version=$pre_release_version"
 echo "build_metadata=$build_metadata"
 echo "fallback_version=$fallback_version"
-echo "fallback_microsoft_version=$fallback_microsoft_version"
-echo "fallback_nuget_version=$fallback_nuget_version"
+echo "dotnet_assembly_version=$dotnet_assembly_version"
+echo "nuget_version=$nuget_version"

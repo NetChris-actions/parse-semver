@@ -40,6 +40,10 @@ For debugging you can also input specific values for GitHub action metadata that
       -  (e.g. `1.2.123456789-fallback-2-3` assuming `major_minor_version` is `1.2`)
     - If all fails, assume major and minor version of `0` and the same patch and prerelease construction
       -  e.g. `0.0.123456789-fallback-2-3`
+  - `dotnet_assembly_version` - A version compatible with [.NET assembly versions](https://learn.microsoft.com/en-us/dotnet/standard/assembly/versioning#assembly-version-number) (Major.Minor.Build.Revision)
+    - `dotnet_assembly_version` will not use `run_id` which is bound to exceed the version component numeric limitations. 
+  - `nuget_version` - A version compatible with NuGet package versions
+    - While NuGet versions are supposedly SemVer adherent, it is still limited by the `dotnet pack` command, which has limitations related to .NET assemblies.  So the same version component limitations as `dotnet_assembly_version` exist for `nuget_version`.
   - `value_to_parse` echoes back the `value_to_parse` input, useful for debugging the calling action
 
 ### Input/Output Examples
