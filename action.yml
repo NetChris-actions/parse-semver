@@ -2,7 +2,19 @@
 name: 'SemVer 2 Parse'
 description: 'Greet someone and record the time'
 inputs:
-  value_to_parse:  # id of input
+  run_id:
+    description: 'GitHub actions run_id'
+    required: false
+    default: "${{ github.run_id }}"
+  run_number:
+    description: 'GitHub actions run_number'
+    required: false
+    default: "${{ github.run_number }}"
+  run_attempt:
+    description: 'GitHub actions run_attempt'
+    required: false
+    default: "${{ github.run_attempt }}"
+  value_to_parse:
     description: 'Value to parse'
     required: false
     default: "${{ github.ref }}"
@@ -29,7 +41,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ github.run_id }}
-    - ${{ github.run_number }}
-    - ${{ github.run_attempt }}
+    - ${{ inputs.run_id }}
+    - ${{ inputs.run_number }}
+    - ${{ inputs.run_attempt }}
     - ${{ inputs.value_to_parse }}
