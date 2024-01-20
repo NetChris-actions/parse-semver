@@ -28,12 +28,12 @@ Note that this functionality will detect _any_ "number.number" form.  Given this
 
 ### Input/Output Examples
 
-| Input Value           | `has_semver_version` | `semver_version`            | `major_version` | `minor_version` | `major_minor_version` | `patch_version` | `pre_release_version` | `build_metadata` | `is_pre_release` |
-| ---                   | ---         | ---                 | ---            | ---            | ---              | ---            | ---                 | ---             | ---            |
-| "`1.2.3`"             | `true`      | `1.2.3`             | `1`            | `2`            | `1.2`            | `3`            | _<EMPTY>_           | _<EMPTY>_       | `false`        |
-| "`5.12.23-alpha+001`" | `true`      | `5.12.23-alpha+001` | `5`            | `12`           | `5.12`           | `23`           | `alpha`             | `001`           | `true`         |
-| "`v2.3`"              | `false`     | _<EMPTY>_           | `2`            | `3`            | `2.3`            | _<EMPTY>_      | _<EMPTY>_           | _<EMPTY>_`      | `false`        |
-| "`v7`"                | `false`     | _<EMPTY>_           | _<EMPTY>_      | _<EMPTY>_      | _<EMPTY>_        | _<EMPTY>_      | _<EMPTY>_           | _<EMPTY>_`      | `false`        |
+| Input Value           | `value_to_parse`    | `has_semver_version` | `semver_version`            | `major_version` | `minor_version` | `major_minor_version` | `patch_version` | `pre_release_version` | `build_metadata` | `is_pre_release` |
+| ---                   | ---                 | ---                  | ---                         | ---             | ---             | ---                   | ---             | ---                   | ---              | ---              |
+| "`1.2.3`"             | `1.2.3`             | `true`               | `1.2.3`                     | `1`             | `2`             | `1.2`                 | `3`             | _<EMPTY>_             | _<EMPTY>_        | `false`          |
+| "`5.12.23-alpha+001`" | `5.12.23-alpha+001` | `true`               | `5.12.23-alpha+001`         | `5`             | `12`            | `5.12`                | `23`            | `alpha`               | `001`            | `true`           |
+| "`v2.3`"              | `v2.3`              | `false`              | _<EMPTY>_                   | `2`             | `3`             | `2.3`                 | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_`       | `false`          |
+| "`v7`"                | `v7`                | `false`              | _<EMPTY>_                   | _<EMPTY>_       | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_`       | `false`          |
 
 ## Usage Examples
 
