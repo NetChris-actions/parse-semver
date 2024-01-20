@@ -2,26 +2,46 @@
 name: 'SemVer 2 Parse'
 description: 'Greet someone and record the time'
 inputs:
-  parseValue:  # id of input
+  value_to_parse:
     description: 'Value to parse'
-    required: true
+    required: false
+    default: "${{ github.ref }}"
+  run_id:
+    description: 'GitHub run_id, typically defaulted so that it can be pulled from the github context'
+    required: false
+    default: "${{ github.run_id }}"
+  run_number:
+    description: 'GitHub run_number, typically defaulted so that it can be pulled from the github context'
+    required: false
+    default: "${{ github.run_number }}"
+  run_attempt:
+    description: 'GitHub run_attempt, typically defaulted so that it can be pulled from the github context'
+    required: false
+    default: "${{ github.run_attempt }}"
 outputs:
-  semVer: # id of output
+  value_to_parse:
+    description: 'The value to parse'
+  semver_version:
     description: 'The fully matched version'
-  semVerMajor: # id of output
+  major_version:
     description: 'The major version'
-  semVerMinor: # id of output
+  minor_version:
     description: 'The minor version'
-  semVerPatch: # id of output
+  patch_version:
     description: 'The patch version'
-  semVerPreRelease: # id of output
+  pre_release_version:
     description: 'The pre-release version'
-  semVerBuildMetadata: # id of output
+  build_metadata:
     description: 'The build metadata'
-  majorMinorOnly: # id of output
+  major_minor_version:
     description: 'Returns any matching MajorVersion.MinorVersion pattern whether the input is valid SemVer or not.  Useful for development releases whee patch and prerelease values will be provided programmatically.'
+  fallback_version:
+    description: 'A best-effort at returning a SemVer-compatible version'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.parseValue }}
+    - ${{ inputs.run_id }}
+    - ${{ inputs.run_number }}
+    - ${{ inputs.run_attempt }}
+    - ${{ inputs.value_to_parse }}
