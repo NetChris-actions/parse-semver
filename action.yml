@@ -3,15 +3,15 @@ name: 'SemVer 2 Parse'
 description: 'Greet someone and record the time'
 inputs:
   run_id:
-    description: 'GitHub actions run_id'
+    description: 'GitHub run_id'
     required: false
     default: "${{ github.run_id }}"
   run_number:
-    description: 'GitHub actions run_number'
+    description: 'GitHub run_number'
     required: false
     default: "${{ github.run_number }}"
   run_attempt:
-    description: 'GitHub actions run_attempt'
+    description: 'GitHub run_attempt'
     required: false
     default: "${{ github.run_attempt }}"
   value_to_parse:
