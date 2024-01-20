@@ -10,7 +10,7 @@ fi
 
 # Detect a "relaxed" major.minor version from the input
 MajorMinorRegEx="((0|[1-9]\d*)\.(0|[1-9]\d*))"
-majorMinorOnly=$(echo $InputValue | pcre2grep -o1 $MajorMinorRegEx)
+major_minor_version=$(echo $InputValue | pcre2grep -o1 $MajorMinorRegEx)
 majorMinorOnlyMajor=$(echo $InputValue | pcre2grep -o2 $MajorMinorRegEx)
 majorMinorOnlyMinor=$(echo $InputValue | pcre2grep -o3 $MajorMinorRegEx)
 
@@ -20,37 +20,37 @@ majorMinorOnlyMinor=$(echo $InputValue | pcre2grep -o3 $MajorMinorRegEx)
 #   - Extract the version only, "trimming off" anything preceding or following it
 SemVer2RegEx="((0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)"
 
-semVer=$(echo $InputValue | pcre2grep -o1 $SemVer2RegEx)
-majorVersion=$(echo $InputValue | pcre2grep -o2 $SemVer2RegEx)
-minorVersion=$(echo $InputValue | pcre2grep -o3 $SemVer2RegEx)
-patchVersion=$(echo $InputValue | pcre2grep -o4 $SemVer2RegEx)
-preReleaseVersion=$(echo $InputValue | pcre2grep -o5 $SemVer2RegEx)
-buildMetadata=$(echo $InputValue | pcre2grep -o6 $SemVer2RegEx)
+semver_version=$(echo $InputValue | pcre2grep -o1 $SemVer2RegEx)
+major_version=$(echo $InputValue | pcre2grep -o2 $SemVer2RegEx)
+minor_version=$(echo $InputValue | pcre2grep -o3 $SemVer2RegEx)
+patch_version=$(echo $InputValue | pcre2grep -o4 $SemVer2RegEx)
+pre_release_version=$(echo $InputValue | pcre2grep -o5 $SemVer2RegEx)
+build_metadata=$(echo $InputValue | pcre2grep -o6 $SemVer2RegEx)
 
-hasSemVer=false
+has_semver_version=false
 isPreRelease=false
 
-if [ ! -z "$semVer" ]
+if [ ! -z "$semver_version" ]
 then
-  hasSemVer=true
+  has_semver_version=true
 
-  if [ ! -z "$preReleaseVersion" ]
+  if [ ! -z "$pre_release_version" ]
   then
     isPreRelease=true
   fi
 
 else
-  # If not an official SemVer value, use majorMinorOnlyMajor and majorMinorOnlyMinor for majorVersion and minorVersion respectively
-  majorVersion=$majorMinorOnlyMajor
-  minorVersion=$majorMinorOnlyMinor
+  # If not an official SemVer value, use majorMinorOnlyMajor and majorMinorOnlyMinor for major_version and minor_version respectively
+  major_version=$majorMinorOnlyMajor
+  minor_version=$majorMinorOnlyMinor
 fi
 
-echo "hasSemVer=$hasSemVer" >> $GITHUB_OUTPUT
-echo "semVer=$semVer" >> $GITHUB_OUTPUT
-echo "majorMinorOnly=$majorMinorOnly" >> $GITHUB_OUTPUT
-echo "majorVersion=$majorVersion" >> $GITHUB_OUTPUT
-echo "minorVersion=$minorVersion" >> $GITHUB_OUTPUT
-echo "patchVersion=$patchVersion" >> $GITHUB_OUTPUT
-echo "preReleaseVersion=$preReleaseVersion" >> $GITHUB_OUTPUT
-echo "buildMetadata=$buildMetadata" >> $GITHUB_OUTPUT
+echo "has_semver_version=$has_semver_version" >> $GITHUB_OUTPUT
+echo "semver_version=$semver_version" >> $GITHUB_OUTPUT
+echo "major_minor_version=$major_minor_version" >> $GITHUB_OUTPUT
+echo "major_version=$major_version" >> $GITHUB_OUTPUT
+echo "minor_version=$minor_version" >> $GITHUB_OUTPUT
+echo "patch_version=$patch_version" >> $GITHUB_OUTPUT
+echo "pre_release_version=$pre_release_version" >> $GITHUB_OUTPUT
+echo "build_metadata=$build_metadata" >> $GITHUB_OUTPUT
 echo "isPreRelease=$isPreRelease" >> $GITHUB_OUTPUT

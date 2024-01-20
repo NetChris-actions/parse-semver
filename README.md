@@ -10,25 +10,25 @@ In this document, any reference to "SemVer" should be assumed to reference [SemV
 
 In some cases it can be useful to detect a "major.minor" format version in the input, even if the input doesn't have a valid SemVer version.  Imagine a scenario where you may want to use the branch `release/v2.2` during development of an upcoming release.  The detected "major.minor" version "2.2" is not a SemVer version but can be used by the consuming job to construct a valid SemVer version for pre-release testing and deployment to non-production environments.  Given a GitHub run ID of 7522504873 you could construct a NuGet package "`MyProject.2.2.7522504873-prerelease.nupkg`".
 
-Note that this functionality will detect _any_ "number.number" form.  Given this, `majorMinorOnly` should only be used to inform **non-production** products.  Production products should use a conforming SemVer version.
+Note that this functionality will detect _any_ "number.number" form.  Given this, `major_minor_version` should only be used to inform **non-production** products.  Production products should use a conforming SemVer version.
 
 ## Outputs
 
 - These outputs provide a value whether the input value contains a valid SemVer version or not:
-  - `hasSemVer` - "true" if the input contains a SemVer version, otherwise "false"
+  - `has_semver_version` - "true" if the input contains a SemVer version, otherwise "false"
 - These outputs provide a value as long as the input value contains a "major.minor" version:
-  - `majorVersion` - The major version
-  - `minorVersion` - The minor version
-  - `majorMinorOnly` - Convenience value containing the "major.minor" version in that form
+  - `major_version` - The major version
+  - `minor_version` - The minor version
+  - `major_minor_version` - Convenience value containing the "major.minor" version in that form
 - The remaining outputs provide values only if the input contains a valid SemVer version:
-  - `semVer` - The full SemVer version
-  - `patchVersion` - The patch version
-  - `preReleaseVersion` - The pre-release version
-  - `buildMetadata` - The build metadata
+  - `semver_version` - The full SemVer version
+  - `patch_version` - The patch version
+  - `pre_release_version` - The pre-release version
+  - `build_metadata` - The build metadata
 
 ### Input/Output Examples
 
-| Input Value           | `hasSemVer` | `semVer`            | `majorVersion` | `minorVersion` | `majorMinorOnly` | `patchVersion` | `preReleaseVersion` | `buildMetadata` | `isPreRelease` |
+| Input Value           | `has_semver_version` | `semver_version`            | `major_version` | `minor_version` | `major_minor_version` | `patch_version` | `pre_release_version` | `build_metadata` | `isPreRelease` |
 | ---                   | ---         | ---                 | ---            | ---            | ---              | ---            | ---                 | ---             | ---            |
 | "`1.2.3`"             | `true`      | `1.2.3`             | `1`            | `2`            | `1.2`            | `3`            | _<EMPTY>_           | _<EMPTY>_       | `false`        |
 | "`5.12.23-alpha+001`" | `true`      | `5.12.23-alpha+001` | `5`            | `12`           | `5.12`           | `23`           | `alpha`             | `001`           | `true`         |
@@ -51,19 +51,19 @@ jobs:
         id: parse
         uses: NetChris/parse-semver@v1
         with:
-          parseValue: 'v1.2.3'
+          value_to_parse: 'v1.2.3'
       - name: Output full match
-        run: echo ${{ steps.parse.outputs.semVer }}
+        run: echo ${{ steps.parse.outputs.semver_version }}
       - name: Output major
-        run: echo ${{ steps.parse.outputs.majorVersion }}
+        run: echo ${{ steps.parse.outputs.major_version }}
       - name: Output minor
-        run: echo ${{ steps.parse.outputs.minorVersion }}
+        run: echo ${{ steps.parse.outputs.minor_version }}
       - name: Output patch
-        run: echo ${{ steps.parse.outputs.patchVersion }}
+        run: echo ${{ steps.parse.outputs.patch_version }}
       - name: Output prerelease
-        run: echo ${{ steps.parse.outputs.preReleaseVersion }}
+        run: echo ${{ steps.parse.outputs.pre_release_version }}
       - name: Output buildmetadata
-        run: echo ${{ steps.parse.outputs.buildMetadata }}
-      - name: Output majorMinorOnly
-        run: echo ${{ steps.parse.outputs.majorMinorOnly }}
+        run: echo ${{ steps.parse.outputs.build_metadata }}
+      - name: Output major_minor_version
+        run: echo ${{ steps.parse.outputs.major_minor_version }}
 ```

@@ -2,28 +2,28 @@
 name: 'SemVer 2 Parse'
 description: 'Greet someone and record the time'
 inputs:
-  parseValue:  # id of input
+  value_to_parse:  # id of input
     description: 'Value to parse'
     required: true
 outputs:
-  hasSemVer: # id of output
+  has_semver_version: # id of output
     description: '"true" if the input contains a SemVer version, otherwise "false"'
-  semVer: # id of output
+  semver_version: # id of output
     description: 'The fully matched version'
-  majorVersion: # id of output
+  major_version: # id of output
     description: 'The major version'
-  minorVersion: # id of output
+  minor_version: # id of output
     description: 'The minor version'
-  patchVersion: # id of output
+  patch_version: # id of output
     description: 'The patch version'
-  preReleaseVersion: # id of output
+  pre_release_version: # id of output
     description: 'The pre-release version'
-  buildMetadata: # id of output
+  build_metadata: # id of output
     description: 'The build metadata'
-  majorMinorOnly: # id of output
+  major_minor_version: # id of output
     description: 'Returns any matching MajorVersion.MinorVersion pattern whether the input is valid SemVer or not.  Useful for development releases whee patch and prerelease values will be provided programmatically.'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.parseValue }}
+    - ${{ inputs.value_to_parse }}
