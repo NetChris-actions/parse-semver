@@ -29,4 +29,4 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.value_to_parse }}
+    - "${{ inputs.value_to_parse }}"
