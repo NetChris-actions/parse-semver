@@ -7,21 +7,23 @@ inputs:
     required: false
     default: "${{ github.ref }}"
 outputs:
-  has_semver_version: # id of output
+  value_to_parse:
+    description: 'The value to parse'
+  has_semver_version:
     description: '"true" if the input contains a SemVer version, otherwise "false"'
-  semver_version: # id of output
+  semver_version:
     description: 'The fully matched version'
-  major_version: # id of output
+  major_version:
     description: 'The major version'
-  minor_version: # id of output
+  minor_version:
     description: 'The minor version'
-  patch_version: # id of output
+  patch_version:
     description: 'The patch version'
-  pre_release_version: # id of output
+  pre_release_version:
     description: 'The pre-release version'
-  build_metadata: # id of output
+  build_metadata:
     description: 'The build metadata'
-  major_minor_version: # id of output
+  major_minor_version:
     description: 'Returns any matching MajorVersion.MinorVersion pattern whether the input is valid SemVer or not.  Useful for development releases whee patch and prerelease values will be provided programmatically.'
 runs:
   using: 'docker'

@@ -1,18 +1,18 @@
 #!/bin/sh -l
 
-InputValue="$1"
+value_to_parse="$1"
 
-if [ -z "$InputValue" ]
+if [ -z "$value_to_parse" ]
 then
-  echo "No input value"
+  echo "No value to parse"
   return -1
 fi
 
 # Detect a "relaxed" major.minor version from the input
 MajorMinorRegEx="((0|[1-9]\d*)\.(0|[1-9]\d*))"
-major_minor_version=$(echo $InputValue | pcre2grep -o1 $MajorMinorRegEx)
-majorMinorOnlyMajor=$(echo $InputValue | pcre2grep -o2 $MajorMinorRegEx)
-majorMinorOnlyMinor=$(echo $InputValue | pcre2grep -o3 $MajorMinorRegEx)
+major_minor_version=$(echo $value_to_parse | pcre2grep -o1 $MajorMinorRegEx)
+majorMinorOnlyMajor=$(echo $value_to_parse | pcre2grep -o2 $MajorMinorRegEx)
+majorMinorOnlyMinor=$(echo $value_to_parse | pcre2grep -o3 $MajorMinorRegEx)
 
 # https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
 # - Modifications from official RegEx: 
@@ -20,12 +20,12 @@ majorMinorOnlyMinor=$(echo $InputValue | pcre2grep -o3 $MajorMinorRegEx)
 #   - Extract the version only, "trimming off" anything preceding or following it
 SemVer2RegEx="((0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)"
 
-semver_version=$(echo $InputValue | pcre2grep -o1 $SemVer2RegEx)
-major_version=$(echo $InputValue | pcre2grep -o2 $SemVer2RegEx)
-minor_version=$(echo $InputValue | pcre2grep -o3 $SemVer2RegEx)
-patch_version=$(echo $InputValue | pcre2grep -o4 $SemVer2RegEx)
-pre_release_version=$(echo $InputValue | pcre2grep -o5 $SemVer2RegEx)
-build_metadata=$(echo $InputValue | pcre2grep -o6 $SemVer2RegEx)
+semver_version=$(echo $value_to_parse | pcre2grep -o1 $SemVer2RegEx)
+major_version=$(echo $value_to_parse | pcre2grep -o2 $SemVer2RegEx)
+minor_version=$(echo $value_to_parse | pcre2grep -o3 $SemVer2RegEx)
+patch_version=$(echo $value_to_parse | pcre2grep -o4 $SemVer2RegEx)
+pre_release_version=$(echo $value_to_parse | pcre2grep -o5 $SemVer2RegEx)
+build_metadata=$(echo $value_to_parse | pcre2grep -o6 $SemVer2RegEx)
 
 has_semver_version=false
 is_pre_release=false
@@ -45,6 +45,7 @@ else
   minor_version=$majorMinorOnlyMinor
 fi
 
+echo "value_to_parse=$value_to_parse" >> $GITHUB_OUTPUT
 echo "has_semver_version=$has_semver_version" >> $GITHUB_OUTPUT
 echo "semver_version=$semver_version" >> $GITHUB_OUTPUT
 echo "major_minor_version=$major_minor_version" >> $GITHUB_OUTPUT
