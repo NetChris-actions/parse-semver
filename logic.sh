@@ -8,7 +8,7 @@ value_to_parse="$4"
 if [ -z "$value_to_parse" ]
 then
   echo "No value to parse"
-  exit -1
+  exit 1
 fi
 
 # Detect a "relaxed" major.minor version from the input
