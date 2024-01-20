@@ -59,11 +59,12 @@ then
   major_version=$majorMinorOnlyMajor
   minor_version=$majorMinorOnlyMinor
 
+  _fallback_prerelease="fallback-$run_number-$run_attempt"
   if [ -z "$major_minor_version" ]
   then
-    fallback_version="0.0.$run_id-fallback+rn-$run_number-ra-$run_attempt"
+    fallback_version="0.0.$run_id-$_fallback_prerelease"
   else
-    fallback_version="$major_minor_version.$run_id-fallback+rn-$run_number-ra-$run_attempt"
+    fallback_version="$major_minor_version.$run_id-$_fallback_prerelease"
   fi
 else
   fallback_version=$semver_version
