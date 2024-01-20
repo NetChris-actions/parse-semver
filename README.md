@@ -28,17 +28,22 @@ There is a single input, `value_to_parse`.  It defaults to using `gitlab.ref` to
   - `pre_release_version` - The pre-release version
   - `build_metadata` - The build metadata
 - Remaining outputs provide values in all cases:
-  - `fallback_version` TODO description
+  - `fallback_version` provides a best-effort at a version, choosing the first possible value from:
+    - If matched, `semver_version`
+    - If `major_minor_version` is available, that value with a patch version from the GitHub `run_id` and a prerelease constructed from `run_number` and `run_attempt`
+      -  (e.g. `1.2.123456789-fallback-2-3` assuming `major_minor_version` is `1.2`)
+    - If all fails, assume major and minor version of `0` and the same patch and prerelease construction
+      -  e.g. `0.0.123456789-fallback-2-3`
   - `value_to_parse` echoes back the `value_to_parse` input, useful for debugging the calling action
 
 ### Input/Output Examples
 
-| Input Value           | `value_to_parse`    | `semver_version`            | `major_version` | `minor_version` | `major_minor_version` | `patch_version` | `pre_release_version` | `build_metadata` |
-| ---                   | ---                 | ---                         | ---             | ---             | ---                   | ---             | ---                   | ---              |
-| "`1.2.3`"             | `1.2.3`             | `1.2.3`                     | `1`             | `2`             | `1.2`                 | `3`             | _<EMPTY>_             | _<EMPTY>_        |
-| "`5.12.23-alpha+001`" | `5.12.23-alpha+001` | `5.12.23-alpha+001`         | `5`             | `12`            | `5.12`                | `23`            | `alpha`               | `001`            |
-| "`v2.3`"              | `v2.3`              | _<EMPTY>_                   | `2`             | `3`             | `2.3`                 | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_`       |
-| "`v7`"                | `v7`                | _<EMPTY>_                   | _<EMPTY>_       | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_`       |
+| Input Value           | `value_to_parse`    | `semver_version`            | `major_version` | `minor_version` | `major_minor_version` | `patch_version` | `pre_release_version` | `build_metadata` | `fallback_version`                                    |
+| ---                   | ---                 | ---                         | ---             | ---             | ---                   | ---             | ---                   | ---              | ---                                                   |
+| "`1.2.3`"             | `1.2.3`             | `1.2.3`                     | `1`             | `2`             | `1.2`                 | `3`             | _<EMPTY>_             | _<EMPTY>_        | `1.2.3`                                               |
+| "`5.12.23-alpha+001`" | `5.12.23-alpha+001` | `5.12.23-alpha+001`         | `5`             | `12`            | `5.12`                | `23`            | `alpha`               | `001`            | `5.12.23-alpha+001`                                   |
+| "`v2.3`"              | `v2.3`              | _<EMPTY>_                   | `2`             | `3`             | `2.3`                 | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_`       | `2.3.123456789-fallback-2-3` (sample GH run metadata) |
+| "`v7`"                | `v7`                | _<EMPTY>_                   | _<EMPTY>_       | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_       | _<EMPTY>_             | _<EMPTY>_`       | `0.0.123456789-fallback-2-3` (sample GH run metadata) |
 
 ## Usage Examples
 
