@@ -1,6 +1,6 @@
 # Parse SemVer 2 versions
 
-Use this action to parse an input string as a SemVer version.  Internally, this uses [`pcre2grep`](https://www.pcre.org/current/doc/html/pcre2grep.html) and [the official SemVer.org RegEx](https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string) to match values.
+Use this action to derive a SemVer version from git ref or parse an input string as a SemVer version.  Internally, this uses [`pcre2grep`](https://www.pcre.org/current/doc/html/pcre2grep.html) and [the official SemVer.org RegEx](https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string) to match values.
 
 ## SemVer Version
 
@@ -14,7 +14,13 @@ Note that this functionality will detect _any_ "number.number" form.  Given this
 
 ## Input
 
-There is a single input, `value_to_parse`.  It defaults to using `gitlab.ref` to automatically try to parse the branch or tag.
+For normal operations, there is a single input, `value_to_parse`.  It defaults to using `gitlab.ref` to automatically try to parse the branch or tag.
+
+For debugging you can also input specific values for GitHub action metadata that would normally be defaulted from the in-progress action:
+
+- `run_id`
+- `run_number`
+- `run_attempt`
 
 ## Outputs
 
