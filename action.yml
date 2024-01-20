@@ -4,7 +4,8 @@ description: 'Greet someone and record the time'
 inputs:
   value_to_parse:  # id of input
     description: 'Value to parse'
-    required: true
+    required: false
+    default: "${{ github.ref }}"
 outputs:
   has_semver_version: # id of output
     description: '"true" if the input contains a SemVer version, otherwise "false"'
