@@ -39,33 +39,76 @@ There is a single input, `value_to_parse`.  It defaults to using `gitlab.ref` to
 
 ## Usage Examples
 
-``` yml
-name: Simplistic Example
+Allow the action to pull the value from `gitlab.ref` itself
+
+``` yaml
+name: parse-semver test - use default
 
 on: [push]
 
 jobs:
-  some-job:
+  test:
     runs-on: ubuntu-latest
-    name: Some job that uses this action
+    name: Parse GITHUB_REF_NAME for SemVer
     steps:
-      - name: SemVer parse
+      - name: Output github.ref
+        run: echo "${{ github.ref }}"
+      - name: Parse GitHub ref
         id: parse
-        uses: NetChris/parse-semver@v1
+        uses: NetChris/parse-semver@5-make-parsing-find-the-first-occurrence-of-the-semver-pattern
+      - name: Output value_to_parse
+        run: echo "${{ steps.parse.outputs.value_to_parse }}"
+      - name: Has semver_version?
+        if: ${{ steps.parse.outputs.semver_version != '' }}
+        run: echo "${{ steps.parse.outputs.semver_version }}"
+      - name: Major/Minor detected?
+        if: ${{ steps.parse.outputs.major_minor_version != '' }}
+        run: echo "${{ steps.parse.outputs.major_minor_version }}"
+      - name: Output major version
+        run: echo ${{ steps.parse.outputs.major_version }}
+      - name: Output minor version
+        run: echo ${{ steps.parse.outputs.minor_version }}
+      - name: Output SemVer patch component
+        run: echo ${{ steps.parse.outputs.patch_version }}
+      - name: Output SemVer prerelease component
+        run: echo ${{ steps.parse.outputs.pre_release_version }}
+      - name: Output SemVer buildmetadata component
+        run: echo ${{ steps.parse.outputs.build_metadata }}
+```
+
+Pass in a value to `value_to_parse`
+
+``` yaml
+name: parse-semver test - passed value "v1.2.3"
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Parse GITHUB_REF_NAME for SemVer
+    steps:
+      - name: Parse GitHub ref
+        id: parse
+        uses: NetChris/parse-semver@5-make-parsing-find-the-first-occurrence-of-the-semver-pattern
         with:
           value_to_parse: 'v1.2.3'
-      - name: Output full match
-        run: echo ${{ steps.parse.outputs.semver_version }}
-      - name: Output major
+      - name: Output value_to_parse
+        run: echo "${{ steps.parse.outputs.value_to_parse }}"
+      - name: Has semver_version?
+        if: ${{ steps.parse.outputs.semver_version != '' }}
+        run: echo "${{ steps.parse.outputs.semver_version }}"
+      - name: Major/Minor detected?
+        if: ${{ steps.parse.outputs.major_minor_version != '' }}
+        run: echo "${{ steps.parse.outputs.major_minor_version }}"
+      - name: Output major version
         run: echo ${{ steps.parse.outputs.major_version }}
-      - name: Output minor
+      - name: Output minor version
         run: echo ${{ steps.parse.outputs.minor_version }}
-      - name: Output patch
+      - name: Output SemVer patch component
         run: echo ${{ steps.parse.outputs.patch_version }}
-      - name: Output prerelease
+      - name: Output SemVer prerelease component
         run: echo ${{ steps.parse.outputs.pre_release_version }}
-      - name: Output buildmetadata
+      - name: Output SemVer buildmetadata component
         run: echo ${{ steps.parse.outputs.build_metadata }}
-      - name: Output major_minor_version
-        run: echo ${{ steps.parse.outputs.major_minor_version }}
 ```
