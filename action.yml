@@ -1,6 +1,5 @@
 # action.yml
 name: 'SemVer 2 Parse'
-description: 'Greet someone and record the time'
 inputs:
   value_to_parse:
     description: 'Value to parse'
