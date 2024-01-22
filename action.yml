@@ -1,6 +1,5 @@
 # action.yml
 name: 'SemVer 2 Parse'
-description: 'Greet someone and record the time'
 inputs:
   value_to_parse:
     description: 'Value to parse'
@@ -37,6 +36,10 @@ outputs:
     description: 'Returns any matching MajorVersion.MinorVersion pattern whether the input is valid SemVer or not.  Useful for development releases whee patch and prerelease values will be provided programmatically.'
   fallback_version:
     description: 'A best-effort at returning a SemVer-compatible version'
+  dotnet_assembly_version:
+    description: 'A version compatible with versioning .NET assemblies'
+  nuget_version:
+    description: 'A version compatible with versioning NuGet packages'
 runs:
   using: 'docker'
   image: 'Dockerfile'

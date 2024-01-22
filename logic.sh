@@ -60,14 +60,34 @@ then
   minor_version=$majorMinorOnlyMinor
 
   _fallback_prerelease="fallback-$run_number-$run_attempt"
+
+  # Low-priority WARNING: dotnet_assembly_version and nuget_version will stop working after run_number exceeds 65534
+  # REALLY Low-priority WARNING: The same holds true for run_attempt
+  # https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assemblyversionattribute
+  # https://stackoverflow.com/a/44680001/208990
+  _fallback_microsoft_version_prefix="$run_attempt.$run_number"
+  _fallback_nuget_version_prefix="$run_attempt.$run_number-$_fallback_prerelease"
+
   if [ -z "$major_minor_version" ]
   then
     fallback_version="0.0.$run_id-$_fallback_prerelease"
+    dotnet_assembly_version="0.0.$_fallback_microsoft_version_prefix"
+    nuget_version="0.0.$_fallback_nuget_version_prefix"
   else
     fallback_version="$major_minor_version.$run_id-$_fallback_prerelease"
+    dotnet_assembly_version="$major_minor_version.$_fallback_microsoft_version_prefix"
+    nuget_version="$major_minor_version.$_fallback_nuget_version_prefix"
   fi
+
 else
   fallback_version=$semver_version
+  dotnet_assembly_version="$major_version.$minor_version.0.$patch_version"
+  nuget_version="$major_version.$minor_version.$patch_version"
+
+  if [ ! -z "$pre_release_version" ]
+  then
+    nuget_version="$nuget_version-$pre_release_version"
+  fi
 fi
 
 echo "value_to_parse=$value_to_parse"
@@ -79,3 +99,5 @@ echo "patch_version=$patch_version"
 echo "pre_release_version=$pre_release_version"
 echo "build_metadata=$build_metadata"
 echo "fallback_version=$fallback_version"
+echo "dotnet_assembly_version=$dotnet_assembly_version"
+echo "nuget_version=$nuget_version"
