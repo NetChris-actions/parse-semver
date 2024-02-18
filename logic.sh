@@ -65,18 +65,18 @@ then
   # REALLY Low-priority WARNING: The same holds true for run_attempt
   # https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assemblyversionattribute
   # https://stackoverflow.com/a/44680001/208990
-  _fallback_microsoft_version_prefix="$run_attempt.$run_number"
-  _fallback_nuget_version_prefix="$run_attempt.$run_number-$_fallback_prerelease"
+  _fallback_microsoft_version_suffix="$run_attempt.$run_number"
+  _fallback_nuget_version_suffix="$run_attempt.$run_number-$_fallback_prerelease"
 
   if [ -z "$major_minor_version" ]
   then
     fallback_version="0.0.$run_id-$_fallback_prerelease"
-    dotnet_assembly_version="0.0.$_fallback_microsoft_version_prefix"
-    nuget_version="0.0.$_fallback_nuget_version_prefix"
+    dotnet_assembly_version="0.0.$_fallback_microsoft_version_suffix"
+    nuget_version="0.0.$_fallback_nuget_version_suffix"
   else
     fallback_version="$major_minor_version.$run_id-$_fallback_prerelease"
-    dotnet_assembly_version="$major_minor_version.$_fallback_microsoft_version_prefix"
-    nuget_version="$major_minor_version.$_fallback_nuget_version_prefix"
+    dotnet_assembly_version="$major_minor_version.$_fallback_microsoft_version_suffix"
+    nuget_version="$major_minor_version.$_fallback_nuget_version_suffix"
   fi
 
 else
