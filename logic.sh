@@ -53,6 +53,15 @@ patch_version=$(echo $value_to_parse | pcre2grep -o4 $SemVer2RegEx)
 pre_release_version=$(echo $value_to_parse | pcre2grep -o5 $SemVer2RegEx)
 build_metadata=$(echo $value_to_parse | pcre2grep -o6 $SemVer2RegEx)
 
+# Microsoft version (https://learn.microsoft.com/en-us/dotnet/standard/assembly/versioning): 
+# <major version>.<minor version>.<build number>.<revision>
+# So we always use run_number for the build number (run ID will be too large)
+# We'll prefer patch for revision, and fall back to run_attempt
+# Low-priority WARNING: dotnet_assembly_version and nuget_version will stop working after run_number exceeds 65534
+# REALLY Low-priority WARNING: The same holds true for run_attempt
+# https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assemblyversionattribute
+# https://stackoverflow.com/a/44680001/208990
+
 if [ -z "$semver_version" ]
 then
   # If not an official SemVer value, use majorMinorOnlyMajor and majorMinorOnlyMinor for major_version and minor_version respectively
@@ -61,27 +70,23 @@ then
 
   _fallback_prerelease="fallback-$run_number-$run_attempt"
 
-  # Low-priority WARNING: dotnet_assembly_version and nuget_version will stop working after run_number exceeds 65534
-  # REALLY Low-priority WARNING: The same holds true for run_attempt
-  # https://learn.microsoft.com/en-us/dotnet/api/system.reflection.assemblyversionattribute
-  # https://stackoverflow.com/a/44680001/208990
-  _fallback_microsoft_version_prefix="$run_attempt.$run_number"
-  _fallback_nuget_version_prefix="$run_attempt.$run_number-$_fallback_prerelease"
+  _fallback_microsoft_version_suffix="$run_number.$run_attempt"
+  _fallback_nuget_version_suffix="$_fallback_microsoft_version_suffix-$_fallback_prerelease"
 
   if [ -z "$major_minor_version" ]
   then
     fallback_version="0.0.$run_id-$_fallback_prerelease"
-    dotnet_assembly_version="0.0.$_fallback_microsoft_version_prefix"
-    nuget_version="0.0.$_fallback_nuget_version_prefix"
+    dotnet_assembly_version="0.0.$_fallback_microsoft_version_suffix"
+    nuget_version="0.0.$_fallback_nuget_version_suffix"
   else
     fallback_version="$major_minor_version.$run_id-$_fallback_prerelease"
-    dotnet_assembly_version="$major_minor_version.$_fallback_microsoft_version_prefix"
-    nuget_version="$major_minor_version.$_fallback_nuget_version_prefix"
+    dotnet_assembly_version="$major_minor_version.$_fallback_microsoft_version_suffix"
+    nuget_version="$major_minor_version.$_fallback_nuget_version_suffix"
   fi
 
 else
   fallback_version=$semver_version
-  dotnet_assembly_version="$major_version.$minor_version.0.$patch_version"
+  dotnet_assembly_version="$major_version.$minor_version.$run_number.$patch_version"
   nuget_version="$major_version.$minor_version.$patch_version"
 
   if [ ! -z "$pre_release_version" ]
